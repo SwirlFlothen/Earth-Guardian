@@ -1,0 +1,53 @@
+/* Landing page specific styles for EarthGuardian */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+html,body{height:100%;margin:0;font-family:'Poppins',sans-serif;background:var(--bg);color:#fff}
+
+/* Decorative background: layered gradients + subtle vignette */
+.landing-bg{
+    position:fixed;inset:0;z-index:-2;pointer-events:none;
+    background:
+        radial-gradient(ellipse at center, rgba(46,204,113,0.06) 0%, rgba(29,42,33,0.0) 40%),
+        linear-gradient(180deg, rgba(7,21,11,0.25), rgba(6,14,7,0.6));
+}
+
+/* Optional hero image with soft overlay */
+.landing-hero-image{
+    position:fixed;inset:0;z-index:-3;background-image: url('../Images/Dashboard-bg.jpg');background-size:cover;background-position:center;opacity:0.18;filter:grayscale(10%) contrast(90%);
+}
+
+/* Slight vignette */
+.landing-vignette{position:fixed;inset:0;z-index:-1;background:radial-gradient(ellipse at center, rgba(0,0,0,0) 40%, rgba(0,0,0,0.45) 100%);} 
+
+/* Navbar small tweak: transparent and compact */
+.navbar{background:linear-gradient(180deg, rgba(29,42,33,0.65), rgba(29,42,33,0.45));padding:12px 40px}
+
+/* Hero */
+.main-content{min-height:calc(100vh - 80px);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 20px 80px}
+.title{font-size:4.8rem;line-height:0.95;margin:0;color:var(--accent);text-shadow:0 10px 40px rgba(0,0,0,0.6);letter-spacing:1px}
+.subtitle{font-size:1.15rem;color:var(--muted);margin-top:14px;max-width:900px}
+
+/* Call to action */
+.btn-hero{background:linear-gradient(45deg,var(--accent),#27AE60);color:#0f261e;padding:16px 40px;border-radius:999px;color:#fff;border:none;font-weight:800;cursor:pointer;margin-top:22px;box-shadow:0 16px 40px rgba(16,65,36,0.18);transition:transform .18s ease,box-shadow .18s}
+.btn-hero:hover{transform:translateY(-6px);box-shadow:0 26px 60px rgba(16,65,36,0.24)}
+
+/* Small device tweaks */
+@media (max-width:900px){
+    .title{font-size:2.4rem}
+    .subtitle{font-size:1rem;padding:0 12px}
+    .btn-hero{padding:12px 28px}
+}
+
+/* Events section tweaks */
+.events-section{position:fixed;left:50%;transform:translateX(-50%);bottom:18px;width:min(95%,var(--max-width));background:var(--card);padding:12px 16px;border-radius:12px;backdrop-filter:blur(6px);box-shadow:0 10px 30px rgba(0,0,0,0.45)}
+.events-section h2{color:var(--accent);margin:0 0 8px 0}
+.event-item{color:var(--muted);margin:6px 0}
+
+/* Reduce pointer interference on background elements */
+.landing-bg, .landing-hero-image, .landing-vignette {pointer-events: none}
+
+/* Subtle animation for title */
+@keyframes floatIn {from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+.title,.subtitle,.btn-hero{animation:floatIn .9s ease both}
+
+/* Improved accessibility: focus state for primary buttons */
+.btn-hero:focus{outline:3px solid rgba(46,204,113,0.18);outline-offset:4px}
