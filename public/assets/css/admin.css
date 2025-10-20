@@ -1,0 +1,78 @@
+/* Admin-specific overrides for EarthGuardian */
+:root{
+  --admin-accent: var(--accent);
+}
+
+/* Admin page layout */
+body.admin-page{background:var(--bg);color:#fff;font-family:'Poppins',sans-serif}
+
+.header{background:linear-gradient(180deg,var(--admin-accent),#27AE60);color:#fff;padding:18px 22px;display:flex;justify-content:space-between;align-items:center;box-shadow:var(--elev-1);border-bottom:1px solid rgba(255,255,255,0.03)}
+.header .brand{display:flex;align-items:center;gap:12px}
+.header .brand img{height:36px}
+.header h1{margin:0;font-size:1.25rem;font-weight:700}
+.header a{color:#fff;text-decoration:none;font-weight:600;padding:8px 14px;border-radius:8px;background:transparent}
+.header a:hover{background:rgba(255,255,255,0.04)}
+
+.container{padding:28px;max-width:var(--max-width);margin:0 auto}
+
+.card-container{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
+.card{background:var(--card);padding:18px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);box-shadow:var(--elev-1);transition:transform .18s,box-shadow .18s;display:flex;flex-direction:column;gap:12px}
+.card:hover{transform:translateY(-6px);box-shadow:var(--elev-2)}
+.card .card-top{display:flex;align-items:center;gap:12px}
+.card .card-icon{width:48px;height:48px;border-radius:10px;display:grid;place-items:center;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.02)}
+.card .card-icon i{color:var(--admin-accent);font-size:1.25rem}
+.card .card-title{font-weight:700;color:#fff}
+.card .card-desc{color:var(--muted);font-size:0.95rem}
+.card .card-cta{margin-top:auto}
+.card .card-cta a{display:inline-flex;align-items:center;gap:10px;padding:8px 12px;border-radius:10px;background:linear-gradient(90deg,var(--admin-accent),#27AE60);color:#fff;text-decoration:none;font-weight:700}
+
+.table-card{overflow:auto;background:var(--card);padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,0.03)}
+table.admin-table{width:100%;border-collapse:collapse}
+table.admin-table th, table.admin-table td{padding:12px 14px;border-bottom:1px solid rgba(255,255,255,0.03);text-align:left;color:var(--muted)}
+table.admin-table th{color:var(--admin-accent);font-weight:700}
+table.admin-table tr:nth-child(even){background:rgba(255,255,255,0.01)}
+/* Enhanced table styles */
+.table-card{background:var(--card);padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);overflow:auto}
+.admin-table{width:100%;border-collapse:collapse;min-width:700px}
+.admin-table thead th{position:sticky;top:0;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));backdrop-filter:blur(4px);z-index:2}
+.admin-table tbody tr{transition:background .12s,transform .12s}
+.admin-table tbody tr:hover{background:rgba(255,255,255,0.03);transform:translateY(-2px)}
+.admin-table td.actions, .admin-table th.actions{width:180px;white-space:nowrap}
+.admin-table td .btn{margin-right:6px}
+.admin-table caption{caption-side:bottom;text-align:left;color:var(--muted);font-size:.9rem;padding-top:8px}
+
+/* Responsive: stack rows on small screens */
+@media (max-width:900px){
+  .table-card{overflow:visible}
+  .admin-table{min-width:0;border:0}
+  .admin-table thead{display:none}
+  .admin-table tbody tr{display:block;margin-bottom:12px;background:var(--card);padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.03)}
+  .admin-table tbody td{display:flex;justify-content:space-between;padding:8px 10px;border-bottom:none}
+  .admin-table tbody td:before{content:attr(data-label);color:var(--muted);margin-right:8px;font-weight:600}
+}
+
+.form-container{background:var(--card);padding:18px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);margin-bottom:18px}
+input,textarea,select{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.03);background:rgba(0,0,0,0.18);color:#fff}
+button{cursor:pointer}
+
+/* utility */
+.muted{color:var(--muted)}
+
+/* Small responsive tweaks */
+@media (max-width:768px){
+  .header h1{font-size:1rem}
+  .container{padding:16px}
+  .card-container{grid-template-columns:1fr}
+}
+
+/* Button system for admin */
+.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:10px;border:none;font-weight:700;cursor:pointer}
+.btn-primary{background:linear-gradient(90deg,var(--admin-accent),#27AE60);color:#fff}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:var(--elev-1)}
+.btn-ghost{background:transparent;color:var(--muted);border:1px solid rgba(255,255,255,0.03)}
+.btn-danger{background:#e74c3c;color:#fff}
+.btn-danger:hover{background:#c0392b}
+.btn-icon{display:inline-grid;place-items:center;width:40px;height:40px;border-radius:8px;background:rgba(255,255,255,0.02);color:var(--admin-accent);border:1px solid rgba(255,255,255,0.02)}
+
+/* small helper for inline controls */
+.controls{display:flex;gap:8px;align-items:center}
