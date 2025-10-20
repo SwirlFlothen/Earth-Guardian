@@ -1,0 +1,271 @@
+<?php
+session_start();
+
+if (isset($_SESSION['user_id'])) {
+    header("Location: ../dashboard/dashboard.php");
+    exit();
+}
+
+require_once '../../includes/db_connect.php';
+
+$error_message = '';
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $username = htmlspecialchars($_POST['username']);
+    $password = $_POST['password'];
+
+    $sql = "SELECT id, password FROM users WHERE username = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    
+    if ($result->num_rows == 1) {
+        $user = $result->fetch_assoc();
+        if (password_verify($password, $user['password'])) {
+            $_SESSION['user_id'] = $user['id'];
+            header("Location: ../dashboard/dashboard.php");
+            exit();
+        } else {
+            $error_message = "Invalid password.";
+        }
+    } else {
+        $error_message = "Username not found.";
+    }
+    $stmt->close();
+}
+$conn->close();
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In - Earth Guardian</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../public/assets/css/main.css">
+    <link rel="stylesheet" href="../../public/assets/css/auth.css">
+</head>
+<body class="auth-body">
+    <div class="auth-page">
+        <div class="auth-card">
+            <div class="left">
+                <div class="auth-image-wrapper">
+                    <img src="../../public/assets/Images/login-hero.png" alt="Earth Guardian" class="auth-hero">
+                    <div class="auth-image-overlay"></div>
+                </div>
+                <div class="auth-welcome">
+                    <h2>Welcome to Earth Guardian</h2>
+                    <p>Join our community and make a difference in protecting our planet.</p>
+                </div>
+            </div>
+            <div class="right">
+                <form class="auth-form" method="POST" action="">
+                    <h1>Welcome Back!</h1>
+                    <p class="auth-subtitle">Continue your environmental journey</p>
+                    
+                    <?php if ($error_message): ?>
+                        <div class="alert error">
+                            <i class="fas fa-exclamation-circle"></i>
+                            <span><?php echo $error_message; ?></span>
+                        </div>
+                    <?php endif; ?>
+
+                    <div class="input-group">
+                        <label for="username">Username</label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-user"></i>
+                            <input type="text" 
+                                   id="username" 
+                                   name="username" 
+                                   required 
+                                   autocomplete="username"
+                                   placeholder="Enter your username">
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="password">Password</label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" 
+                                   id="password" 
+                                   name="password" 
+                                   required 
+                                   autocomplete="current-password"
+                                   placeholder="Enter your password">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="auth-submit">
+                        Sign In
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+
+                    <div class="auth-footer">
+                        <p>Don't have an account? 
+                            <a href="signup.php" class="auth-link">Sign up</a>
+                        </p>
+                        <a href="../static/about_us.php" class="auth-link small">Learn more about Earth Guardian</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In - Earth Guardians</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../public/assets/css/main.css">
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            color: white;
+            background: url('../../public/assets/Images/Dashboard-bg.jpg') no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 1000px;
+            padding-top: 0; /* No navbar, so no padding needed */
+        }
+        .main-container {
+            display: flex;
+            width: 90%; /* Make it responsive */
+            max-width: 1000px; /* Max width for larger screens */
+            height: auto; /* Allow height to adjust based on content */
+            background: rgba(29, 42, 33, 0.8);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            border: 1px solid rgba(46, 204, 113, 0.2);
+            flex-wrap: wrap; /* Allow items to wrap on smaller screens */
+        }
+        .image-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+        }
+        .login-container {
+            flex: 1;
+            padding: 40px;
+            text-align: center;
+            min-width: 300px; /* Ensure it doesn't get too small */
+        }
+        .login-container:hover {
+            transform: translateZ(20px);
+        }
+        .login-container h1 {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            text-shadow: 0 0 10px rgba(46, 204, 113, 0.7);
+        }
+        .input-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid rgba(46, 204, 113, 0.2);
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            transition: background 0.3s, box-shadow 0.3s;
+        }
+        .input-group input:focus {
+            background: rgba(46, 204, 113, 0.2);
+            box-shadow: 0 0 15px rgba(46, 204, 113, 0.5);
+            outline: none;
+        }
+        .btn {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            color: #fff;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(46, 204, 113, 0.8);
+        }
+        .btn-primary {
+            background: linear-gradient(45deg, #2ECC71, #27AE60);
+        }
+        .sub-text {
+            margin-top: 20px;
+        }
+        .sub-text a {
+            color: #2ECC71;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .error-message {
+            color: #ff4d4d;
+            margin-bottom: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .main-container {
+                flex-direction: column; /* Stack items vertically */
+                height: auto;
+            }
+            .image-container {
+                order: -1; /* Image on top */
+            }
+            .login-container {
+                width: auto;
+                padding: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-container">
+        <div class="image-container">
+            <img src="../../public/assets/Images/Login-vector.png" alt="Login Vector">
+        </div>
+        <div class="login-container">
+            <h1>Sign In</h1>
+            <?php if(!empty($error_message)) echo "<p class='error-message'>$error_message</p>"; ?>
+            <form action="login.php" method="post">
+                <div class="input-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+            </form>
+            <p class="sub-text">Don't have an account? <a href="signup.php">Sign Up</a></p>
+        </div>
+    </div>
+</body>
+</html>
