@@ -1,0 +1,220 @@
+/* EarthGuardian main stylesheet - finishing touches */
+:root{
+    --bg:#1D2A21;
+    --accent:#2ECC71;
+    --muted:#BFC8BC;
+    --card:rgba(29,42,33,0.8);
+    --glass: rgba(255,255,255,0.04);
+    --radius:12px;
+    --max-width:1200px;
+    --elev-1: 0 6px 18px rgba(0,0,0,0.35);
+    --elev-2: 0 14px 35px rgba(0,0,0,0.45);
+    --elev-3: 0 24px 60px rgba(0,0,0,0.55);
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;font-family:'Poppins',sans-serif;background:var(--bg);color:#fff}
+
+/* Navbar */
+.navbar{
+    position:fixed;top:0;left:0;right:0;z-index:1000;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:12px 40px;background:linear-gradient(180deg, rgba(29,42,33,0.95), rgba(29,42,33,0.85));
+    backdrop-filter: blur(6px);box-shadow:0 6px 20px rgba(0,0,0,0.5);max-width:100vw;overflow:hidden;
+}
+.navbar .logo img{height:48px;display:block}
+.nav-links{display:flex;gap:18px;align-items:center;list-style:none;margin:0;padding:0}
+.nav-links li a{color:var(--muted);text-decoration:none;padding:8px 10px;border-radius:8px;display:inline-flex;align-items:center;gap:8px;transition:all .18s ease;font-weight:600}
+.nav-links li a i{color:var(--accent)}
+.nav-links li a:hover{color:#fff;transform:translateY(-3px);background:rgba(255,255,255,0.03)}
+.nav-links .link-text{display:inline-block;max-width:0;overflow:hidden;white-space:nowrap;transition:max-width .18s ease,opacity .18s ease;opacity:0;margin-left:6px}
+.nav-links li a:hover .link-text{max-width:240px;opacity:1}
+
+/* handle anchors used without li (inline nav usage) */
+.nav-links a{display:inline-flex;align-items:center;gap:8px}
+.nav-links a .link-text{display:inline-block;max-width:0;overflow:hidden;white-space:nowrap;opacity:0;transition:max-width .18s ease,opacity .18s ease}
+.nav-links a:hover .link-text{max-width:240px;opacity:1}
+.nav-active{transform:translateX(0%) !important}
+.burger{display:none;cursor:pointer}
+.burger div{width:26px;height:3px;background:#fff;border-radius:4px;margin:4px 0;transition:all .25s}
+.burger.toggle .line1{transform:rotate(-45deg) translate(-5px,6px)}
+.burger.toggle .line2{opacity:0}
+.burger.toggle .line3{transform:rotate(45deg) translate(-5px,-6px)}
+
+/* Main hero */
+.main-content{min-height:calc(100vh - 80px);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 20px 80px}
+.title{font-size:5rem;line-height:0.95;margin:0;color:var(--accent);text-shadow:0 6px 30px rgba(46,204,113,0.12)}
+.subtitle{font-size:1.25rem;color:var(--muted);margin-top:12px}
+.btn{background:linear-gradient(45deg,var(--accent),#27AE60);padding:14px 36px;border-radius:999px;color:#fff;border:none;font-weight:700;cursor:pointer;box-shadow:0 8px 30px rgba(46,204,113,0.12);transition:transform .18s ease,box-shadow .18s}
+.btn:hover{transform:translateY(-4px);box-shadow:0 14px 40px rgba(46,204,113,0.18)}
+
+/* Events */
+.events-section{position:fixed;left:50%;transform:translateX(-50%);bottom:18px;width:min(95%,var(--max-width));background:var(--card);padding:14px 20px;border-radius:14px;backdrop-filter:blur(6px);box-shadow:0 10px 30px rgba(0,0,0,0.45)}
+.events-section h2{color:var(--accent);margin:0 0 8px 0}
+.event-item{color:var(--muted);margin:6px 0}
+
+/* Utilities */
+.container{width:100%;max-width:var(--max-width);margin:0 auto;padding:0 20px}
+
+/* Responsive */
+@media (max-width:900px){
+    .title{font-size:3.2rem}
+    .nav-links{gap:12px}
+}
+
+@media (max-width:768px){
+    .navbar{padding:10px 16px}
+    .nav-links{position:fixed;right:0;top:70px;height:calc(100vh - 70px);width:78vw;max-width:360px;background:linear-gradient(180deg,rgba(29,42,33,0.98),rgba(29,42,33,0.96));flex-direction:column;align-items:flex-start;padding:20px;transform:translateX(100%);transition:transform .35s ease;gap:10px;overflow:auto}
+    .nav-links li{width:100%}
+    .nav-links li a{width:100%;padding:12px 14px;border-radius:10px;color:#fff}
+    /* On mobile menu open show full link text */
+    .nav-links .link-text{max-width:1000px;opacity:1}
+    .burger{display:flex;flex-direction:column;justify-content:space-around;width:32px;height:26px}
+    .main-content{padding-top:110px}
+    .events-section{bottom:12px;padding:12px}
+}
+
+/* Small polish */
+a.logo{display:flex;align-items:center}
+
+/* Prevent accidental horizontal scroll */
+html,body{overflow-x:hidden}
+
+/* Dashboard specific improvements */
+/* Dashboard specific improvements - modernized */
+.header{
+    text-align:center;
+    padding:100px 20px 40px;
+    background:linear-gradient(180deg, rgba(0,0,0,0.55), rgba(0,0,0,0.8)), url('../Images/Dashboard-bg.jpg') no-repeat center center/cover;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+}
+.header h1{font-size:2.6rem;margin:0 0 6px;color:var(--accent);text-shadow:0 8px 30px rgba(0,0,0,0.5)}
+.header p{color:var(--muted);margin:0;font-size:1rem}
+
+.dashboard-container{max-width:var(--max-width);margin:22px auto;display:grid;grid-template-columns:360px 1fr;gap:28px;padding:20px}
+.card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:14px;padding:18px;border:1px solid rgba(255,255,255,0.03);box-shadow:0 12px 30px rgba(0,0,0,0.45)}
+/* polished card shadow and hover lift */
+.card{box-shadow:var(--elev-1);transition:transform .22s cubic-bezier(.2,.9,.2,1),box-shadow .22s}
+.card:hover{transform:translateY(-8px);box-shadow:var(--elev-2)}
+
+/* subtle entrance animation for cards */
+.card[hidden="false"]{opacity:0;transform:translateY(8px)}
+.card{opacity:1}
+
+.profile-summary{display:flex;flex-direction:column;gap:18px}
+.stat-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.stat-card{display:flex;flex-direction:column;align-items:flex-start;gap:8px;padding:12px;border-radius:10px;background:linear-gradient(90deg, rgba(46,204,113,0.03), rgba(255,255,255,0.01));min-height:80px}
+.stat-card{box-shadow: var(--elev-1);}
+.stat-card:hover{box-shadow: var(--elev-2);transform:translateY(-4px)}
+.stat-card .label{font-size:0.9rem;color:var(--muted)}
+.stat-card .value{font-size:1.1rem;font-weight:700;color:#fff}
+.stat-card .value i{margin-right:8px;color:var(--accent)}
+
+.xp-chart-card{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:12px}
+.xp-chart-card canvas{max-width:140px;max-height:140px}
+
+.level-progress{width:100%;background:rgba(0,0,0,0.12);height:14px;border-radius:99px;overflow:hidden;margin-top:10px}
+.progress-bar{height:100%;background:linear-gradient(90deg,var(--accent),#27AE60);width:0%;transition:width 1.2s cubic-bezier(.2,.9,.2,1)}
+
+/* small responsive improvements */
+@media (prefers-reduced-motion: reduce){
+    .card,.stat-card,.progress-bar{transition:none}
+}
+
+.earned-badges .badges-grid{display:flex;flex-wrap:wrap;gap:10px}
+.badge-item{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,0.02);padding:8px 12px;border-radius:10px;border:1px solid rgba(255,255,255,0.03)}
+.badge-item i{color:var(--accent);font-size:1.2rem}
+
+.completed-missions .mission-list{display:flex;flex-direction:column;gap:10px}
+.mission-list-item{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px;border-radius:10px;background:rgba(0,0,0,0.12)}
+.mission-list-item strong{font-weight:700}
+.mission-list-item time{color:var(--muted);font-size:.9rem}
+
+.aqi-data,.weather-data,.nasa-epic-data,.climate-charts{margin-top:18px}
+.aqi-data canvas, .weather-data canvas, .chart-wrap canvas{background:transparent;border-radius:10px}
+.nasa-epic-data img{width:100%;border-radius:12px;display:block;box-shadow:0 12px 30px rgba(0,0,0,0.45);margin-top:10px}
+
+/* make charts area visually distinct */
+.chart-wrap{background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.01));padding:14px;border-radius:12px}
+
+/* Missions / cards shared styles */
+.missions-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px;max-width:var(--max-width);margin:32px auto;padding:0 20px}
+.mission-card{border-radius:12px;padding:18px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.03);box-shadow:var(--elev-1);display:flex;flex-direction:column;gap:12px;min-height:160px}
+.mission-card:hover{transform:translateY(-6px);box-shadow:var(--elev-2)}
+.mission-card h2{margin:0;color:var(--accent)}
+.mission-card p{color:var(--muted);flex-grow:1}
+.mission-card .points{font-weight:800;color:var(--accent);font-size:1.05rem}
+.mission-card .btn{align-self:flex-start;margin-top:12px}
+
+@media (max-width:768px){
+    .missions-grid{gap:16px;padding:0 12px}
+    .mission-card{padding:14px}
+}
+
+/* Responsive tweaks for dashboard */
+@media (max-width:1100px){
+    .dashboard-container{grid-template-columns:1fr}
+    .profile-summary{order:0}
+}
+@media (max-width:900px){
+    .header{padding:80px 12px 30px}
+    .header h1{font-size:2.2rem}
+    .stat-cards{grid-template-columns:1fr}
+}
+
+/* Accessibility: reveal link-text when focused */
+.nav-links a:focus .link-text, .nav-links a:focus-visible .link-text{max-width:240px;opacity:1}
+ 
+/* Quiz page styles - modern card layout */
+.quiz-container{display:flex;justify-content:center;padding:36px 20px 60px}
+.quiz-card{width:100%;max-width:820px;background:linear-gradient(180deg, rgba(12,18,16,0.6), rgba(12,18,16,0.5));border-radius:14px;padding:20px;border:1px solid rgba(255,255,255,0.04);box-shadow:0 10px 30px rgba(0,0,0,0.6)}
+.quiz-card .title{font-size:1.6rem !important;margin:6px 0 10px 0;color:#E8FFF0;font-weight:700;letter-spacing:0.2px;text-shadow:none}
+.question-card{background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));border-radius:12px;padding:12px;margin-bottom:12px;border:1px solid rgba(255,255,255,0.03);display:block}
+.question-card .q-text{margin:0;font-weight:700;color:var(--muted)}
+.answers{display:flex;flex-direction:column;gap:10px;margin-top:12px}
+/* hide native radio visuals and make custom bullets */
+.answer-label{display:flex;align-items:center;gap:12px;padding:12px;border-radius:12px;cursor:pointer;border:1px solid rgba(255,255,255,0.03);transition:all .16s cubic-bezier(.2,.9,.2,1);background:rgba(255,255,255,0.01);position:relative}
+/* Visually hide native radio but keep it keyboard-accessible */
+.answer-label input[type="radio"]{position:absolute;left:12px;top:50%;transform:translateY(-50%);opacity:0;width:18px;height:18px}
+.answer-bullet{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:10px;background:rgba(255,255,255,0.02);color:var(--muted);font-weight:700;margin-right:12px;border:1px solid rgba(255,255,255,0.03);transition:all .12s}
+.answer-label:hover{transform:translateY(-4px);box-shadow:var(--elev-1);background:linear-gradient(90deg, rgba(255,255,255,0.012), rgba(255,255,255,0.006))}
+/* selected state */
+.answer-label.selected{border-color:rgba(46,204,113,0.14);background:linear-gradient(90deg, rgba(46,204,113,0.04), rgba(255,255,255,0.005))}
+.answer-label.selected .answer-bullet{background:linear-gradient(90deg,var(--accent),#27AE60);color:#06150B;border-color:rgba(0,0,0,0.08)}
+.answer-text{color:#E8FFF0}
+.score-display{background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));border-radius:10px;padding:12px;margin-bottom:16px;border:1px solid rgba(255,255,255,0.03)}
+.score-display h2{margin:0 0 6px;color:var(--accent)}
+.pass{color:#7EE787;font-weight:700}
+.fail{color:#FF7A7A;font-weight:700}
+.detailed-results{margin-top:8px}
+.result-item{padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.03);margin-bottom:10px;background:linear-gradient(180deg, rgba(0,0,0,0.02), rgba(0,0,0,0.01))}
+.result-answers{list-style:none;padding:0;margin:6px 0 0 0;display:flex;flex-direction:column;gap:8px}
+.result-answers li{padding:8px 10px;border-radius:8px}
+.result-answers li.correct{background:linear-gradient(90deg, rgba(46,204,113,0.08), rgba(255,255,255,0.02));border:1px solid rgba(46,204,113,0.14);color:#E8FFF0}
+.result-answers li.selected-wrong{background:linear-gradient(90deg, rgba(255,122,122,0.05), rgba(255,255,255,0.01));border:1px solid rgba(255,122,122,0.14);color:#FFEAEA}
+.result-status{margin-top:8px}
+
+@media (max-width:640px){
+    .quiz-card{padding:16px}
+    .answer-label{padding:10px}
+}
+
+.stepper-controls{display:flex;align-items:center;justify-content:center;gap:16px}
+.stepper-controls .btn{padding:10px 16px;border-radius:10px;font-weight:700}
+.stepper-controls .btn[disabled]{opacity:0.45;cursor:not-allowed}
+.stepper-controls a.btn{padding:10px 16px}
+
+/* Make the progress bar more visible */
+.quiz-card .quiz-progress > div{height:10px;border-radius:999px;background:rgba(255,255,255,0.04);overflow:hidden}
+.quiz-card .progress-bar{height:100%;background:linear-gradient(90deg,var(--accent),#27AE60);width:0%;transition:width .5s cubic-bezier(.2,.9,.2,1)}
+
+
+/* Title, question numbering and option styling tweaks */
+.quiz-card .title{font-size:1.6rem;letter-spacing:0.2px}
+.q-header{display:flex;align-items:flex-start;gap:12px}
+.q-number{background:linear-gradient(90deg,var(--accent),#27AE60);color:#06210F;font-weight:800;padding:8px 12px;border-radius:10px;font-size:0.95rem;min-width:52px;text-align:center}
+.question-card .q-text{font-size:1.05rem;color:#F6FFF8}
+.answer-bullet{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:8px;background:rgba(255,255,255,0.02);color:var(--accent);font-weight:700;margin-right:8px}
+.answer-text{flex:1}
+.answer-label{display:flex;align-items:center}
+
+
