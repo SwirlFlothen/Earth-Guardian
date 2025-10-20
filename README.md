@@ -32,10 +32,9 @@ To set up the Earth Guardians project locally, follow these steps:
 
 1.  **Clone the repository:**
     ```bash
-    git clone <repository_url>
+    git clone https://github.com/SwirlFlothen/Earth-Guardian.git
     cd EG
     ```
-    (Assuming `<repository_url>` is where the project is hosted)
 
 2.  **Database Setup:**
     *   Ensure you have MySQL installed and running (e.g., via XAMPP, WAMP, MAMP).
@@ -116,7 +115,6 @@ To set up the Earth Guardians project locally, follow these steps:
     ├── index.php
     └── assets/
         ├── Images/
-        │   ├── 123a218d57983517e353c6515205b72a66b67a66.png
         │   ├── Dashboard-bg.jpg
         │   ├── Landing-bg.jpg
         │   ├── Login-vector.png
